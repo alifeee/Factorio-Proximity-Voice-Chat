@@ -10,7 +10,6 @@
 #include <windows.h>
 #include <BaseTsd.h>
 #include "getline.c"
-typedef SSIZE_T ssize_t;
 #else // linux / macos
 #include <unistd.h>
 #include <pwd.h>
