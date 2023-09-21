@@ -73,7 +73,7 @@ void mumble_releaseResource(const void *pointer)
 
 mumble_version_t mumble_getVersion()
 {
-	char *VERSION = "0.2.1";
+	char *VERSION = "0.2.2";
 
 	mumble_version_t version;
 	char *v = malloc(strlen(VERSION) + 1);

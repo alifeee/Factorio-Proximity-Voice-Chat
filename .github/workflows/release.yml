@@ -126,14 +126,14 @@ jobs:
 
       - name: Bundle
         run: |
-          cp -r factorio/ proximity-chat/
-          zip -r proximity-chat_${{ steps.get_version.outputs.version }}.zip proximity-chat
+          cp -r factorio/ proximity-voice-chat/
+          zip -r proximity-voice-chat_${{ steps.get_version.outputs.version }}.zip proximity-voice-chat
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.3
         with:
           name: factorio_bundle
-          path: proximity-chat_${{ steps.get_version.outputs.version }}.zip
+          path: proximity-voice-chat_${{ steps.get_version.outputs.version }}.zip
 
   add_release_files:
     needs: [bundle_mumble, bundle_factorio]
@@ -179,6 +179,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: factorio_bundle/proximity-chat_${{ steps.get_version.outputs.version }}.zip
-          asset_name: proximity-chat_${{ steps.get_version.outputs.version }}.zip
+          asset_path: factorio_bundle/proximity-voice-chat_${{ steps.get_version.outputs.version }}.zip
+          asset_name: proximity-voice-chat_${{ steps.get_version.outputs.version }}.zip
           asset_content_type: application/zip
