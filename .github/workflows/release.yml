@@ -23,7 +23,7 @@ jobs:
           grep -F "<version>${{ steps.get_version.outputs.version }}</version>" mumble/manifest.xml
           grep -F 'char *VERSION = "${{ steps.get_version.outputs.version }}";' mumble/plugin.c
 
-  build_mumble:
+  mumble_build:
     needs: verify_version_number
     runs-on: ${{ matrix.os }}
 
@@ -90,8 +90,8 @@ jobs:
           name: build
           path: ${{ steps.strings.outputs.build-output-dir }}
 
-  bundle_mumble:
-    needs: [build_mumble, verify_version_number]
+  mumble_bundle:
+    needs: [mumble_build, verify_version_number]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -114,7 +114,35 @@ jobs:
           name: mumble_bundle
           path: factorio.mumble_plugin
 
-  bundle_factorio:
+  mumble_release:
+    needs: mumble_bundle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get Mumble bundle
+        uses: actions/download-artifact@v3
+        with:
+          name: mumble_bundle
+          path: mumble_bundle
+
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.3.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Upload mumble plugin
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: mumble_bundle/factorio.mumble_plugin
+          asset_name: factorio.mumble_plugin
+          asset_content_type: application/zip
+
+  factorio_bundle:
     needs: verify_version_number
     runs-on: ubuntu-latest
     steps:
@@ -135,8 +163,8 @@ jobs:
           name: factorio_bundle
           path: proximity-voice-chat_${{ steps.get_version.outputs.version }}.zip
 
-  add_release_files:
-    needs: [bundle_mumble, bundle_factorio]
+  factorio_release:
+    needs: factorio_bundle
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -144,12 +172,6 @@ jobs:
       - id: get_version
         name: Get version
         uses: jannemattila/get-version-from-tag@v1
-
-      - name: Get Mumble bundle
-        uses: actions/download-artifact@v3
-        with:
-          name: mumble_bundle
-          path: mumble_bundle
 
       - name: Get Factorio bundle
         uses: actions/download-artifact@v3
@@ -163,16 +185,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Upload mumble plugin
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: mumble_bundle/factorio.mumble_plugin
-          asset_name: factorio.mumble_plugin
-          asset_content_type: application/zip
-
       - name: Upload factorio mod
         uses: actions/upload-release-asset@v1.0.2
         env:
@@ -183,8 +195,8 @@ jobs:
           asset_name: proximity-voice-chat_${{ steps.get_version.outputs.version }}.zip
           asset_content_type: application/zip
 
-  upload_to_factorio_mod_portal:
-    needs: bundle_factorio
+  factorio_publish:
+    needs: factorio_release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
