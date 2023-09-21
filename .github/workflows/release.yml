@@ -9,6 +9,8 @@ jobs:
   verify_version_number:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - id: get_version
         name: Get version
         uses: jannemattila/get-version-from-tag@v1
@@ -21,7 +23,8 @@ jobs:
           grep -F "<version>${{ steps.get_version.outputs.version }}</version>" mumble/manifest.xml
           grep -F 'char *VERSION = "${{ steps.get_version.outputs.version }}";' mumble/plugin.c
 
-  build:
+  build_mumble:
+    needs: verify_version_number
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -88,7 +91,7 @@ jobs:
           path: ${{ steps.strings.outputs.build-output-dir }}
 
   bundle_mumble:
-    needs: build
+    needs: [build_mumble, verify_version_number]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -112,6 +115,7 @@ jobs:
           path: factorio.mumble_plugin
 
   bundle_factorio:
+    needs: verify_version_number
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
