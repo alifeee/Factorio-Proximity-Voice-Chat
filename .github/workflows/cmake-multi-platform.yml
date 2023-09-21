@@ -24,10 +24,8 @@ jobs:
       # To add more build types (Release, Debug, RelWithDebInfo, etc.) customize the build_type list.
       matrix:
         os: [ubuntu-latest, windows-latest]
-        c_compiler: [gcc, clang, cl]
+        c_compiler: [gcc, clang]
         include:
-          - os: windows-latest
-            c_compiler: cl
           - os: windows-latest
             c_compiler: gcc
           - os: ubuntu-latest
@@ -37,8 +35,6 @@ jobs:
         exclude:
           - os: windows-latest
             c_compiler: clang
-          - os: ubuntu-latest
-            c_compiler: cl
 
     steps:
       - uses: actions/checkout@v3
