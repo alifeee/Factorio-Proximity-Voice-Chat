@@ -8,7 +8,7 @@ Proximity/positional audio in Factorio!
 
 - Download [Mumble](https://www.mumble.info/) voice chat software
 - Install [mumble plugin](https://github.com/alifeee/MumblePlugin-FactorioPositionalAudio/releases) (see [below](#mumble-plugin-installation) for more info)
-- Install Factorio mod (see [below](#factorio-mod-installation) for more info)
+- Install Factorio mod ["Proximity Voice Chat"](https://mods.factorio.com/mod/proximity-voice-chat) (see [below](#factorio-mod-installation) for more info)
 - Enable Positional Audio (PA) in Mumble
 - Done!
   
@@ -28,7 +28,9 @@ Proximity/positional audio in Factorio!
 
 ### Factorio mod installation
 
-\<placeholder image of mod portal\>
+Install the [Proximity voice chat mod](https://mods.factorio.com/mod/proximity-voice-chat) in-game.
+
+![Screenshot of Factorio, installing mod](images/factorio_install-mod.png)
 
 ## Development
 
@@ -39,8 +41,6 @@ All files are in [`./mumble`](./mumble/)
 The main plugin is in [`plugin.c`](./mumble/plugin.c). For development guide, see [plugin docs](https://github.com/mumble-voip/mumble/blob/master/docs/dev/plugins/README.md). This plugin reads player position information from the file on disk (via the Factorio mod) and attaches to the Mumble Positional Audio API.
 
 To build it, I use [GitHub actions](https://github.com/alifeee/MumblePlugin-FactorioPositionalAudio/actions). The plugin is generated as a file `factorio.mumble_plugin` in the `bundle` artifact (deleted after 1 day).
-
-To make a release, I make a release then manually add `factorio.mumble_plugin` to the release. Version number must be changed in [`plugin.c`](./mumble/plugin.c), [`CMakeLists.txt`](./mumble/CMakeLists.txt), and [`manifest.xml`](./mumble/manifest.xml).
 
 ### Factorio mod
 
@@ -64,10 +64,10 @@ s: alifeee
 
 #### File location
 
-The log file is put in [`%application directory%`](https://wiki.factorio.com/Application_directory)`/script-output/player_position.txt`.
+The log file is put in [`%application directory%`](https://wiki.factorio.com/Application_directory)`/script-output/mumble_positional-audio_information.txt`.
 
 On Windows, that's
 
 ```path
-%APPDATA%/Factorio/script-output/player_position.txt
+%APPDATA%/Factorio/script-output/mumble_positional-audio_information.txt
 ```
