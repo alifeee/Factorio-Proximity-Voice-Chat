@@ -182,3 +182,27 @@ jobs:
           asset_path: factorio_bundle/proximity-voice-chat_${{ steps.get_version.outputs.version }}.zip
           asset_name: proximity-voice-chat_${{ steps.get_version.outputs.version }}.zip
           asset_content_type: application/zip
+
+  upload_to_factorio_mod_portal:
+    needs: bundle_factorio
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: get_version
+        name: Get version
+        uses: jannemattila/get-version-from-tag@v1
+
+      - name: Get Factorio bundle
+        uses: actions/download-artifact@v3
+        with:
+          name: factorio_bundle
+          path: factorio_bundle
+
+      - name: Upload to Factorio Mod Portal
+        uses: mchangrh/factorio-mod-upload@v1
+        with:
+          mod-name: "proximity-voice-chat"
+        env:
+          FACTORIO_MODS_TOKEN: ${{ secrets.FACTORIO_API_KEY }}
+          FILENAME: "./factorio_bundle/proximity-voice-chat_${{ steps.get_version.outputs.version }}.zip"
