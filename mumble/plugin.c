@@ -73,10 +73,14 @@ void mumble_releaseResource(const void *pointer)
 
 mumble_version_t mumble_getVersion()
 {
+	char *VERSION = "0.2.0";
+
 	mumble_version_t version;
-	version.major = 0;
-	version.minor = 1;
-	version.patch = 0;
+	char *v = malloc(strlen(VERSION) + 1);
+	strcpy(v, VERSION); // cannot use strtok on const char*
+	version.major = atoi(strtok(v, "."));
+	version.minor = atoi(strtok(NULL, "."));
+	version.patch = atoi(strtok(NULL, "."));
 
 	return version;
 }
