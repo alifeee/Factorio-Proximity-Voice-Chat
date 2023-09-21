@@ -74,7 +74,7 @@ jobs:
       - name: Bundle
         run: |
           mv build/libfactorio_linux_x86_64.so libplugin.so
-          mv build/Release/plugin.dll plugin.dll
+          mv build/libplugin.dll plugin.dll
           mv mumble/manifest.xml manifest.xml
           zip -MM factorio.mumble_plugin manifest.xml libplugin.so plugin.dll
 
