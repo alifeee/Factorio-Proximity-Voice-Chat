@@ -16,7 +16,7 @@ typedef SSIZE_T ssize_t;
 #include <pwd.h>
 #endif
 
-#define POSITION_INFO_PATH "/Factorio/script-output/player_position.txt"
+#define POSITION_INFO_PATH "/Factorio/script-output/mumble_positional-audio_information.txt"
 
 /**
  * @brief Get the string for the home directory
