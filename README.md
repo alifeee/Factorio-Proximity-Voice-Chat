@@ -40,7 +40,37 @@ All files are in [`./mumble`](./mumble/)
 
 The main plugin is in [`plugin.c`](./mumble/plugin.c). For development guide, see [plugin docs](https://github.com/mumble-voip/mumble/blob/master/docs/dev/plugins/README.md). This plugin reads player position information from the file on disk (via the Factorio mod) and attaches to the Mumble Positional Audio API.
 
-To build it, I use [GitHub actions](https://github.com/alifeee/MumblePlugin-FactorioPositionalAudio/actions). The plugin is generated as a file `factorio.mumble_plugin` in the `bundle` artifact (deleted after 1 day).
+#### Building (via Actions)
+
+The [GitHub actions](https://github.com/alifeee/MumblePlugin-FactorioPositionalAudio/actions) build the plugin for Windows and Linux. The plugin is output as a file `factorio.mumble_plugin` in the `bundle` artifact (deleted after 1 day).
+
+#### Building (locally)
+
+##### Linux (Ubuntu)
+
+Install gcc and make
+
+```bash
+sudo apt install gcc
+sudo apt install make
+```
+
+Run build commands
+
+```bash
+cmake -S ./mumble/ -B ./build/ && make -C ./build
+```
+
+##### Windows
+
+Install gcc, mingw32-make with [mingw](https://sourceforge.net/projects/mingw/).
+Run commands (Powershell)
+
+```bash
+cmake -S .\mumble\ -B .\build\ -DCMAKE_C_COMPILER=gcc -G "MinGW Makefiles"; make -C .\build\
+```
+
+Output `dll` is `./build/libplugin.dll`.
 
 ### Factorio mod
 
