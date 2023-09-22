@@ -5,7 +5,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(TargetArch)
 
 project(MumblePlugin
-	VERSION "0.3.1"
+	VERSION "0.3.2"
 	DESCRIPTION "Factorio Positional Audio Plugin"
 	LANGUAGES "C"
 )
