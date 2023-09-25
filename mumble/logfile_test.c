@@ -22,9 +22,17 @@ int main(int argc, char **argv)
     int player, surface;
     char *server;
     size_t server_len;
+    int error = 0;
 
     printf("Parsing factorio logfile...\n");
-    parse_factorio_logfile(&x, &y, &z, &player, &surface, &server, &server_len);
+    parse_factorio_logfile(&x, &y, &z, &player, &surface, &server, &server_len, &error);
+
+    if (error)
+    {
+        printf("Error parsing factorio logfile\n");
+        printf("Error code: %d\n", error);
+        return 0;
+    }
 
     // log variables
     printf("x: %f\n", x);

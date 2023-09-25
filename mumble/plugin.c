@@ -194,9 +194,13 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	int player, surface;
 	char *server;
 	size_t server_len;
+	int error = 0;
 
 #ifdef FILE_ENABLED
-	parse_factorio_logfile(&x, &y, &z, &player, &surface, &server, &server_len);
+	if (!parse_factorio_logfile(&x, &y, &z, &player, &surface, &server, &server_len, &error))
+	{
+		return false;
+	}
 #else
 	// dummy data
 	x = 0.0f;
