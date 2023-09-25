@@ -48,7 +48,7 @@ The [GitHub actions](https://github.com/alifeee/MumblePlugin-FactorioPositionalA
 
 ##### Linux (Ubuntu)
 
-Install gcc and make
+Install GCC and make
 
 ```bash
 sudo apt install gcc
@@ -63,11 +63,16 @@ cmake -S ./mumble/ -B ./build/ && make -C ./build
 
 ##### Windows
 
-Install gcc, mingw32-make with [mingw](https://sourceforge.net/projects/mingw/).
-Run commands (Powershell)
+Install [Visual Studio Build Tools] with "Desktop development in C++"
+
+[Visual Studio Build Tools]: https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022
+
+![Screenshot of Visual Studio Build tools installer, showing "Desktop development with C++" selected.](images/vsbt_desktop-dev-c.png)
+
+Run commands (PowerShell). This will make a local Windows-only plugin (in `build/factorio.mumble_plugin`). You must manually install it into mumble by unloading any previous plugin, and installing this.
 
 ```bash
-cmake -S .\mumble\ -B .\build\ -DCMAKE_C_COMPILER=gcc -G "MinGW Makefiles"; make -C .\build\
+cmake -S .\mumble\ -B .\build\ -DCMAKE_C_COMPILER=cl; cmake --build .\build\ --config Release; bash package_windows.sh
 ```
 
 Output `dll` is `./build/libplugin.dll`.
