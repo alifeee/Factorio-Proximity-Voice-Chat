@@ -75,8 +75,6 @@ Run commands (PowerShell). This will make a local Windows-only plugin (in `build
 cmake -S .\mumble\ -B .\build\ -DCMAKE_C_COMPILER=cl; cmake --build .\build\ --config Release; bash package_windows.sh
 ```
 
-Output `dll` is `./build/libplugin.dll`.
-
 ### Factorio mod
 
 All files are in [`./factorio`](./factorio/).
