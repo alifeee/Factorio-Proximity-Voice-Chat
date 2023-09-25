@@ -18,7 +18,7 @@ mumble_error_t mumble_init(mumble_plugin_id_t pluginID)
 
 	srand(81731);
 
-	if (mumbleAPI.log(ownID, "Hello Mumble") != MUMBLE_STATUS_OK)
+	if (mumbleAPI.log(ownID, "Hello Mumble!") != MUMBLE_STATUS_OK)
 	{
 		// Logging failed -> usually you'd probably want to log things like this in your plugin's
 		// logging system (if there is any)
@@ -29,7 +29,7 @@ mumble_error_t mumble_init(mumble_plugin_id_t pluginID)
 
 void mumble_shutdown()
 {
-	if (mumbleAPI.log(ownID, "Goodbye Mumble") != MUMBLE_STATUS_OK)
+	if (mumbleAPI.log(ownID, "Goodbye Mumble!") != MUMBLE_STATUS_OK)
 	{
 		// Logging failed -> usually you'd probably want to log things like this in your plugin's
 		// logging system (if there is any)
