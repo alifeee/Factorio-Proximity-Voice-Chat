@@ -23,6 +23,7 @@ int main(int argc, char **argv)
     char *server;
     size_t server_len;
 
+    printf("Parsing factorio logfile...\n");
     parse_factorio_logfile(&x, &y, &z, &player, &surface, &server, &server_len);
 
     // log variables
