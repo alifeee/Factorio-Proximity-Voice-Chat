@@ -8,6 +8,7 @@
 #define FACTORIO_EXE "factorio.exe"
 #define FILE_ENABLED // comment to disable file parsing (for testing crashes)
 // #define DEBUG_FLUCTUATION // uncomment to enable random fluctuation of camera axis (to see plugin is working)
+// #define DEBUG_FACTORIO_NOT_REQUIRED // uncomment and factorio.exe will not need to be running to use plugin
 
 struct MumbleAPI_v_1_0_x mumbleAPI;
 mumble_plugin_id_t ownID;
@@ -138,11 +139,13 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 		}
 	}
 
+#ifndef DEBUG_FACTORIO_NOT_REQUIRED
 	if (!found)
 	{
 		// If the game is not running, return MUMBLE_PDEC_ERROR_TEMP
 		return MUMBLE_PDEC_ERROR_TEMP;
 	}
+#endif
 
 	// If the game is running, check if the positional audio mod is installed (if the log file exists)
 	// and if it is, return MUMBLE_PDEC_OK
