@@ -6,6 +6,7 @@
 #include <string.h>
 
 #define FACTORIO_EXE "factorio.exe"
+#define FILE_ENABLED
 
 struct MumbleAPI_v_1_0_x mumbleAPI;
 mumble_plugin_id_t ownID;
@@ -192,7 +193,18 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	char *server;
 	size_t server_len;
 
+#ifdef FILE_ENABLED
 	parse_factorio_logfile(&x, &y, &z, &player, &surface, &server, &server_len);
+#else
+	// dummy data
+	x = 0.0f;
+	y = 0.0f;
+	z = 0.0f;
+	player = 0;
+	surface = 0;
+	server = "localhost";
+	server_len = strlen(server);
+#endif
 
 	avatarPos[0] = x;
 	avatarPos[1] = y;
@@ -216,7 +228,12 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 
 	cameraAxis[0] = 0.0f;
 	cameraAxis[1] = 0.0f;
+#ifdef FILE_ENABLED
 	cameraAxis[2] = 0.0f;
+#else
+	// set to random value between 0.01 and 0.02
+	cameraAxis[2] = 0.01f + ((float)rand() / (float)RAND_MAX) * 0.01f;
+#endif
 
 	// context: combine server + surface
 	char *context_str = malloc(server_len + 1 + 1 + 1);
