@@ -68,7 +68,9 @@ int is_factorio_logfile_there()
     char *factorioLogfile = malloc(strlen(homeDir) + strlen(POSITION_INFO_PATH) + 1);
     strcpy(factorioLogfile, homeDir);
     strcat(factorioLogfile, POSITION_INFO_PATH);
-    return file_exists(factorioLogfile);
+    int does_exist = file_exists(factorioLogfile);
+    free(factorioLogfile);
+    return does_exist;
 }
 
 time_t get_file_modified_time(char *path)
@@ -84,7 +86,9 @@ time_t get_factorio_file_modified_time()
     char *factorioLogfile = malloc(strlen(homeDir) + strlen(POSITION_INFO_PATH) + 1);
     strcpy(factorioLogfile, homeDir);
     strcat(factorioLogfile, POSITION_INFO_PATH);
-    return get_file_modified_time(factorioLogfile);
+    time_t modified_time = get_file_modified_time(factorioLogfile);
+    free(factorioLogfile);
+    return modified_time;
 }
 
 int is_factorio_logfile_recent(int seconds)
@@ -183,4 +187,6 @@ void parse_factorio_logfile(float *x, float *y, float *z, int *player, int *surf
     fclose(fp);
     if (line)
         free(line);
+
+    free(factorioLogfile);
 }
