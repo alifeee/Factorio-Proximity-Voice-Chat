@@ -6,7 +6,8 @@
 #include <string.h>
 
 #define FACTORIO_EXE "factorio.exe"
-#define FILE_ENABLED
+#define FILE_ENABLED // comment to disable file parsing (for testing crashes)
+// #define DEBUG_FLUCTUATION // uncomment to enable random fluctuation of camera axis (to see plugin is working)
 
 struct MumbleAPI_v_1_0_x mumbleAPI;
 mumble_plugin_id_t ownID;
@@ -228,11 +229,11 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 
 	cameraAxis[0] = 0.0f;
 	cameraAxis[1] = 0.0f;
-#ifdef FILE_ENABLED
-	cameraAxis[2] = 0.0f;
-#else
+#ifdef DEBUG_FLUCTUATION
 	// set to random value between 0.01 and 0.02
 	cameraAxis[2] = 0.01f + ((float)rand() / (float)RAND_MAX) * 0.01f;
+#else
+	cameraAxis[2] = 0.0f;
 #endif
 
 	// context: combine server + surface
