@@ -251,6 +251,15 @@ int parse_factorio_logfile(float *x, float *y, float *z, int *player, int *surfa
         return 0;
     }
     // process data
+
+    // check XYZ is present
+    // IMPORTANT: otherwise, the file is invalid somehow (thanks Lua)
+    //  and Mumble will crash when trying to parse it
+    if (strstr(f_data, "XYZ") == NULL)
+    {
+        *error = 4;
+        return 0;
+    }
     // printf("%s\n", f_data);
     // split by newline
     char *line;
