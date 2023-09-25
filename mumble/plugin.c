@@ -85,8 +85,6 @@ mumble_version_t mumble_getVersion()
 	version.minor = atoi(strtok(NULL, "."));
 	version.patch = atoi(strtok(NULL, "."));
 
-	free(v);
-
 	return version;
 }
 
