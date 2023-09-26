@@ -50,8 +50,13 @@ int main(int argc, char **argv)
     sprintf(surface_str, "%d", surface);
     strcat(context_str, surface_str);
     char *context = context_str;
-
     printf("context: %s\n", context_str);
+
+    // identity
+    char *player_str = malloc(12);
+    sprintf(player_str, "%d", player);
+    char *identity = player_str;
+    printf("identity: %s\n", identity);
 
     // get_file_modified_time
     time_t modified_time = get_factorio_file_modified_time();
