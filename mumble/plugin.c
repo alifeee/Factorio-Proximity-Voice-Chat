@@ -251,7 +251,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	*context = context_str;
 
 	// identity: player
-	char player_str[12];
+	char *player_str = malloc(12);
 	sprintf(player_str, "%d", player);
 	*identity = player_str;
 
