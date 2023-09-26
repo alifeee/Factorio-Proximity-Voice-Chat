@@ -159,7 +159,7 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 		return MUMBLE_PDEC_ERROR_TEMP;
 	}
 
-	if (!is_factorio_logfile_recent(2)) // 2 seconds
+	if (!is_factorio_logfile_recent(4)) // 4 seconds
 	{
 		return MUMBLE_PDEC_ERROR_TEMP;
 	}
@@ -184,7 +184,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	}
 
 	// if log file is old (last modified > N seconds ago), data is bad
-	if (!is_factorio_logfile_recent(2)) // 2 seconds
+	if (!is_factorio_logfile_recent(4)) // 4 seconds
 	{
 		return false;
 	}
