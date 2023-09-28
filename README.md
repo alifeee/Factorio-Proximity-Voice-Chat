@@ -2,6 +2,8 @@
 
 Proximity/positional audio in Factorio!
 
+![Logo from mod portal](images/logo.png)
+
 ![Positional audio GIF](./images/Positional_Audio.gif)
 
 ## To install
