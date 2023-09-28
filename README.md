@@ -23,7 +23,7 @@ Proximity/positional audio in Factorio!
   ![Screenshot of mumble, installing plugin](images/mumble_install.png)
 1. Enable positional audio
   ![Screenshot of mumble, enabling positional audio](images/mumble_enable_pa.png)
-1. Done! To check it works, try the positional audio viewer (requires Mumble v1.5)
+1. Done! To check it works, try the positional audio viewer (requires [Mumble v1.5](https://www.mumble.info/downloads/#development-snapshots))
   ![Screenshot of mumble, viewing positional audio debugger](images/mumble_PAviewer.png)
 
 ### Factorio mod installation
