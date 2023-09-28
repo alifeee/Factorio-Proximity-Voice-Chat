@@ -22,6 +22,8 @@
 #define FILE_NOT_EXIST 1
 #define FILE_TOO_LARGE 2
 #define FILE_READ_ERROR 3
+// for parse_factorio_logfile func below
+#define FILE_PARSE_NO_XYZ 4
 
 /**
  * @brief Get the string for the home directory
@@ -230,6 +232,7 @@ char *strtok_r(
  * @param server server id (string) - username of host
  * @param server_len length of server string
  * @param error error code (pointer)
+ * @return int 1 if successful, 0 if not
  */
 int parse_factorio_logfile(float *x, float *y, float *z, int *player, int *surface, char **server, size_t *server_len, int *error)
 {
@@ -257,7 +260,7 @@ int parse_factorio_logfile(float *x, float *y, float *z, int *player, int *surfa
     //  and Mumble will crash when trying to parse it
     if (strstr(f_data, "XYZ") == NULL)
     {
-        *error = 4;
+        *error = FILE_PARSE_NO_XYZ;
         return 0;
     }
     // printf("%s\n", f_data);
