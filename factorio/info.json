@@ -3,7 +3,8 @@
   "version": "0.5.0",
   "title": "Proximity Voice Chat",
   "author": "alifeee",
+  "contact": "alifeee.web@outlook.com",
   "factorio_version": "1.1",
   "dependencies": ["base >= 1.1"],
-  "description": "Integrates with the Mumble Factorio plugin, allowing proximity chat in multiplayer games."
+  "description": "!! MUMBLE REQUIRED WITH PLUGIN !! Enables proximity chat in multiplayer games, via Mumble voice chat. You must separately install the Mumble plugin."
 }
