@@ -18,7 +18,7 @@ mumble_error_t mumble_init(mumble_plugin_id_t pluginID)
 
 	srand(81731);
 
-	if (mumbleAPI.log(ownID, "Hello Mumble!") != MUMBLE_STATUS_OK)
+	if (mumbleAPI.log(ownID, "PA plugin loaded!") != MUMBLE_STATUS_OK)
 	{
 		// Logging failed -> usually you'd probably want to log things like this in your plugin's
 		// logging system (if there is any)
@@ -29,7 +29,7 @@ mumble_error_t mumble_init(mumble_plugin_id_t pluginID)
 
 void mumble_shutdown()
 {
-	if (mumbleAPI.log(ownID, "Goodbye Mumble!") != MUMBLE_STATUS_OK)
+	if (mumbleAPI.log(ownID, "PA plugin shut down successfully!") != MUMBLE_STATUS_OK)
 	{
 		// Logging failed -> usually you'd probably want to log things like this in your plugin's
 		// logging system (if there is any)
@@ -148,7 +148,7 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 		// to install the mod
 		if (!factorio_mod_notified)
 		{
-			mumbleAPI.log(ownID, "Factorio positional audio mod not installed. Please install it to use positional audio.");
+			mumbleAPI.log(ownID, "It doesn't look like the Factorio \"Proximity Voice Chat\" mod is installed. Please install it using the mod portal in order to use positional audio.");
 			factorio_mod_notified = true;
 		}
 		return MUMBLE_PDEC_ERROR_TEMP;
