@@ -206,25 +206,39 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 		return false;
 	}
 
+	// Factorio coordinates are:
+	// x: east- west+
+	// y: north- south+
+
+	// Mumble coordinates are:
+	// x: east- west+
+	// y: up+ down-
+	// z: north+ south-
+
+	// thus, Mumble coordinates are:
+	// x: Factorio x
+	// y: Factorio z
+	// z: Factorio -y
+
 	avatarPos[0] = x;
-	avatarPos[1] = y;
-	avatarPos[2] = z;
+	avatarPos[1] = z;
+	avatarPos[2] = -y;
 
 	avatarDir[0] = 0.0f;
-	avatarDir[1] = 0.0f;
-	avatarDir[2] = -1.0f;
+	avatarDir[1] = -1.0f;
+	avatarDir[2] = 0.0f;
 
 	avatarAxis[0] = 0.0f;
 	avatarAxis[1] = 0.0f;
-	avatarAxis[2] = -1.0f;
+	avatarAxis[2] = 1.0f;
 
 	cameraPos[0] = x;
-	cameraPos[1] = y;
-	cameraPos[2] = z;
+	cameraPos[1] = z;
+	cameraPos[2] = -y;
 
 	cameraDir[0] = 0.0f;
-	cameraDir[1] = 0.0f;
-	cameraDir[2] = -1.0f;
+	cameraDir[1] = -1.0f;
+	cameraDir[2] = 0.0f;
 
 	cameraAxis[0] = 0.0f;
 	cameraAxis[1] = 0.0f;
@@ -232,7 +246,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	// set to random value between 0.01 and 0.02
 	cameraAxis[2] = 0.01f + ((float)rand() / (float)RAND_MAX) * 0.01f;
 #else
-	cameraAxis[2] = -1.0f;
+	cameraAxis[2] = 1.0f;
 #endif
 
 	// context: combine server + surface
