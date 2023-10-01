@@ -218,9 +218,9 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	avatarAxis[1] = 0.0f;
 	avatarAxis[2] = 0.0f;
 
-	cameraPos[0] = 0.0f;
-	cameraPos[1] = 0.0f;
-	cameraPos[2] = 0.0f;
+	cameraPos[0] = x;
+	cameraPos[1] = y;
+	cameraPos[2] = z;
 
 	cameraDir[0] = 0.0f;
 	cameraDir[1] = 0.0f;
