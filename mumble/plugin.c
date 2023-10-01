@@ -212,11 +212,11 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 
 	avatarDir[0] = 0.0f;
 	avatarDir[1] = 0.0f;
-	avatarDir[2] = 0.0f;
+	avatarDir[2] = -1.0f;
 
 	avatarAxis[0] = 0.0f;
 	avatarAxis[1] = 0.0f;
-	avatarAxis[2] = 0.0f;
+	avatarAxis[2] = -1.0f;
 
 	cameraPos[0] = x;
 	cameraPos[1] = y;
@@ -224,7 +224,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 
 	cameraDir[0] = 0.0f;
 	cameraDir[1] = 0.0f;
-	cameraDir[2] = 0.0f;
+	cameraDir[2] = -1.0f;
 
 	cameraAxis[0] = 0.0f;
 	cameraAxis[1] = 0.0f;
@@ -232,7 +232,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	// set to random value between 0.01 and 0.02
 	cameraAxis[2] = 0.01f + ((float)rand() / (float)RAND_MAX) * 0.01f;
 #else
-	cameraAxis[2] = 0.0f;
+	cameraAxis[2] = -1.0f;
 #endif
 
 	// context: combine server + surface
