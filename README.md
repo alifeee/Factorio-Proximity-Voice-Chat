@@ -8,6 +8,8 @@ Proximity/positional audio in Factorio!
 
 ## To install
 
+Installation instructions are on the ["Proximity Voice Chat" Factorio mod page](https://mods.factorio.com/mod/proximity-voice-chat)
+
 - Download [Mumble](https://www.mumble.info/) voice chat software
 - Install [mumble plugin](https://github.com/alifeee/MumblePlugin-FactorioPositionalAudio/releases) (see [below](#mumble-plugin-installation) for more info)
 - Install Factorio mod ["Proximity Voice Chat"](https://mods.factorio.com/mod/proximity-voice-chat) (see [below](#factorio-mod-installation) for more info)
@@ -16,7 +18,7 @@ Proximity/positional audio in Factorio!
   
   PA will enable when you are in the same game server.
 
-  ![Alt text](images/mumble_enable_pa.png)
+  ![Screenshot of enabling PA in Mumble](images/mumble_enable_pa.png)
 
 ### Mumble plugin installation
 
@@ -25,8 +27,8 @@ Proximity/positional audio in Factorio!
   ![Screenshot of mumble, installing plugin](images/mumble_install.png)
 1. Enable positional audio
   ![Screenshot of mumble, enabling positional audio](images/mumble_enable_pa.png)
-1. Done! To check it works, try the positional audio viewer (requires [Mumble v1.5](https://www.mumble.info/downloads/#development-snapshots))
-  ![Screenshot of mumble, viewing positional audio debugger](images/mumble_PAviewer.png)
+1. Done! To check it works, launch Factorio, load a game with the Factorio mod, and check the Mumble chat. It should display "Factorio linked"
+  ![Screenshot of mumble, showing Factorio linked](images/mumble_factorio-linked.png)
 
 ### Factorio mod installation
 
@@ -41,6 +43,9 @@ Install the [Proximity voice chat mod](https://mods.factorio.com/mod/proximity-v
 All files are in [`./mumble`](./mumble/)
 
 The main plugin is in [`plugin.c`](./mumble/plugin.c). For development guide, see [plugin docs](https://github.com/mumble-voip/mumble/blob/master/docs/dev/plugins/README.md). This plugin reads player position information from the file on disk (via the Factorio mod) and attaches to the Mumble Positional Audio API.
+
+To check that the data is sent to Mumble correctly, you can use the positional audio viewer (requires [Mumble v1.5](https://www.mumble.info/downloads/#development-snapshots) - plugin may be broken on 1.5, see [comment](https://github.com/alifeee/Factorio-Proximity-Voice-Chat/issues/10#issuecomment-1749657127))
+  ![Screenshot of mumble, viewing positional audio debugger](images/mumble_PAviewer.png)
 
 #### Building (via Actions)
 
