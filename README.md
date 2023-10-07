@@ -13,12 +13,10 @@ Installation instructions are on the ["Proximity Voice Chat" Factorio mod page](
 - Download [Mumble](https://www.mumble.info/) voice chat software
 - Install [mumble plugin](https://github.com/alifeee/MumblePlugin-FactorioPositionalAudio/releases) (see [below](#mumble-plugin-installation) for more info)
 - Install Factorio mod ["Proximity Voice Chat"](https://mods.factorio.com/mod/proximity-voice-chat) (see [below](#factorio-mod-installation) for more info)
-- Enable Positional Audio (PA) in Mumble
+- Enable Positional Audio (PA) in Mumble (see [below](#mumble-plugin-installation))
 - Done!
   
   PA will enable when you are in the same game server.
-
-  ![Screenshot of enabling PA in Mumble](images/mumble_enable_pa.png)
 
 ### Mumble plugin installation
 
@@ -27,6 +25,8 @@ Installation instructions are on the ["Proximity Voice Chat" Factorio mod page](
   ![Screenshot of mumble, installing plugin](images/mumble_install.png)
 1. Enable positional audio
   ![Screenshot of mumble, enabling positional audio](images/mumble_enable_pa.png)
+1. Change positional audio settings to personal preference (1 metre = 1 tile in-game). Hover over each setting to see what they do. My recommendation is the following settings:
+  ![Screenshot of PA settings under Audio Output in Mumble](images/mumble_PA-settings.png)
 1. Done! To check it works, launch Factorio, load a game with the Factorio mod, and check the Mumble chat. It should display "Factorio linked"
   ![Screenshot of mumble, showing Factorio linked](images/mumble_factorio-linked.png)
 
