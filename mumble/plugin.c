@@ -193,12 +193,24 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	if (!parse_factorio_logfile(&x, &y, &z, &player, &surface, &server, &server_len, &error))
 	{
 		// if parsing failed, OH NO!
-		// if this was because the file was empty, we return true here otherwise Mumble disables PA for Factorio.
-		// the PA data is just not updated. It remains the same as before.
+		//  if this was because the file was empty, we return true here otherwise Mumble disables PA for Factorio.
+		//  the PA data is just not updated. It remains the same as before.
 		if (error == FILE_PARSE_NO_XYZ)
 		{
 			return true;
 		}
+
+		// if we get FILE_READ_ERROR, the file length was different to the
+		//  length actually read
+		//  Factorio probably wrote a new file while we were reading it
+		//  we ignore this because it happens a lot
+		//  this might introduce problems if FILE_READ_ERROR gets reached for
+		//   a different reason
+		if (error == FILE_READ_ERROR)
+		{
+			return true;
+		}
+
 		// log error
 		char *log = malloc(100);
 		sprintf(log, "File read error: %d", error);
