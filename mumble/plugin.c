@@ -148,7 +148,7 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 		// to install the mod
 		if (!factorio_mod_notified)
 		{
-			mumbleAPI.log(ownID, "It doesn't look like the Factorio \"Proximity Voice Chat\" mod is installed. Please install it using the mod portal in order to use positional audio.");
+			mumbleAPI.log(ownID, "I can't find the position file in \%APPDATA\%/Factorio/script-output, which is needed for positional audio. This is either because the mod is not installed (in which case please install it using the mod portal), or you haven't loaded a game yet with the mod installed.");
 			factorio_mod_notified = true;
 		}
 		return MUMBLE_PDEC_ERROR_TEMP;
