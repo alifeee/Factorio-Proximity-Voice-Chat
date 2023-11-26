@@ -261,14 +261,10 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	cameraAxis[2] = 1.0f;
 #endif
 
-	// context: combine server + surface
-	char *context_str = malloc(server_len + 1 + 1 + 1);
-	strcpy(context_str, server);
-	strcat(context_str, "/");
-	char surface_str[12];
-	sprintf(surface_str, "%d", surface);
-	strcat(context_str, surface_str);
-	*context = context_str;
+	// context: server
+	char *server_str = malloc(server_len + 1);
+	strcpy(server_str, server);
+	*context = server_str;
 
 	// identity: player
 	char *player_str = malloc(12);
