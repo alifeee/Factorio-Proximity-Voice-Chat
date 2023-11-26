@@ -221,6 +221,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	// Factorio coordinates are:
 	// x: east- west+
 	// y: north- south+
+	// z: (surface index)
 
 	// Mumble coordinates are:
 	// x: east- west+
@@ -229,11 +230,14 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 
 	// thus, Mumble coordinates are:
 	// x: Factorio x
-	// y: Factorio z
+	// y: Factorio (surface index)
 	// z: Factorio -y
 
+	// we multiply surface index by 1000 so people on
+	//  different surfaces can't hear one another
+
 	avatarPos[0] = x;
-	avatarPos[1] = z;
+	avatarPos[1] = z + surface * 1000.0f;
 	avatarPos[2] = -y;
 
 	avatarDir[0] = 0.0f;
@@ -245,7 +249,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	avatarAxis[2] = 1.0f;
 
 	cameraPos[0] = x;
-	cameraPos[1] = z;
+	cameraPos[1] = z + surface * 1000.0f;
 	cameraPos[2] = -y;
 
 	cameraDir[0] = 0.0f;
