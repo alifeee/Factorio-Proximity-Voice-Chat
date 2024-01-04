@@ -148,7 +148,7 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 		// to install the mod
 		if (!factorio_mod_notified)
 		{
-			mumbleAPI.log(ownID, "It doesn't look like the Factorio \"Proximity Voice Chat\" mod is installed. Please install it using the mod portal in order to use positional audio.");
+			mumbleAPI.log(ownID, "I can't find the position file in \%APPDATA\%/Factorio/script-output, which is needed for positional audio. This is either because the mod is not installed (in which case please install it using the mod portal), or you haven't loaded a game yet with the mod installed.");
 			factorio_mod_notified = true;
 		}
 		return MUMBLE_PDEC_ERROR_TEMP;
@@ -193,12 +193,24 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	if (!parse_factorio_logfile(&x, &y, &z, &player, &surface, &server, &server_len, &error))
 	{
 		// if parsing failed, OH NO!
-		// if this was because the file was empty, we return true here otherwise Mumble disables PA for Factorio.
-		// the PA data is just not updated. It remains the same as before.
+		//  if this was because the file was empty, we return true here otherwise Mumble disables PA for Factorio.
+		//  the PA data is just not updated. It remains the same as before.
 		if (error == FILE_PARSE_NO_XYZ)
 		{
 			return true;
 		}
+
+		// if we get FILE_READ_ERROR, the file length was different to the
+		//  length actually read
+		//  Factorio probably wrote a new file while we were reading it
+		//  we ignore this because it happens a lot
+		//  this might introduce problems if FILE_READ_ERROR gets reached for
+		//   a different reason
+		if (error == FILE_READ_ERROR)
+		{
+			return true;
+		}
+
 		// log error
 		char *log = malloc(100);
 		sprintf(log, "File read error: %d", error);
@@ -209,6 +221,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	// Factorio coordinates are:
 	// x: east- west+
 	// y: north- south+
+	// z: (surface index)
 
 	// Mumble coordinates are:
 	// x: east- west+
@@ -217,11 +230,14 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 
 	// thus, Mumble coordinates are:
 	// x: Factorio x
-	// y: Factorio z
+	// y: Factorio (surface index)
 	// z: Factorio -y
 
+	// we multiply surface index by 1000 so people on
+	//  different surfaces can't hear one another
+
 	avatarPos[0] = x;
-	avatarPos[1] = z;
+	avatarPos[1] = z + surface * 1000.0f;
 	avatarPos[2] = -y;
 
 	avatarDir[0] = 0.0f;
@@ -233,7 +249,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	avatarAxis[2] = 1.0f;
 
 	cameraPos[0] = x;
-	cameraPos[1] = z;
+	cameraPos[1] = z + surface * 1000.0f;
 	cameraPos[2] = -y;
 
 	cameraDir[0] = 0.0f;
@@ -249,14 +265,10 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	cameraAxis[2] = 1.0f;
 #endif
 
-	// context: combine server + surface
-	char *context_str = malloc(server_len + 1 + 1 + 1);
-	strcpy(context_str, server);
-	strcat(context_str, "/");
-	char surface_str[12];
-	sprintf(surface_str, "%d", surface);
-	strcat(context_str, surface_str);
-	*context = context_str;
+	// context: server
+	char *server_str = malloc(server_len + 1);
+	strcpy(server_str, server);
+	*context = server_str;
 
 	// identity: player
 	char *player_str = malloc(12);

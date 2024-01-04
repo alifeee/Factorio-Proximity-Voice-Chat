@@ -157,6 +157,7 @@ char *c_read_file(const char *f_name, int *err, size_t *f_size)
                 free(buffer);
                 *err = FILE_READ_ERROR;
 
+                fclose(f);
                 return NULL;
             }
         }
