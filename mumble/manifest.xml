@@ -5,5 +5,5 @@
     <plugin os="linux" arch="x64">libplugin.so</plugin>
   </assets>
   <name>Factorio Positional Audio</name>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </bundle>
