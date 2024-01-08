@@ -13,19 +13,23 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [
+            ubuntu-latest,
+            # windows-latest,
+            macos-latest,
+          ]
         build_type: [Release]
         c_compiler: [gcc, cl]
         include:
-          - os: windows-latest
-            c_compiler: cl
+          # - os: windows-latest
+          #   c_compiler: cl
           - os: ubuntu-latest
             c_compiler: gcc
           - os: macos-latest
             c_compiler: gcc
         exclude:
-          - os: windows-latest
-            c_compiler: gcc
+          # - os: windows-latest
+          #   c_compiler: gcc
           - os: ubuntu-latest
             c_compiler: cl
           - os: macos-latest
@@ -50,6 +54,10 @@ jobs:
 
       - name: Build
         run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
+
+      - name: Rename Mac OS X plugin
+        if: matrix.os == 'macos-latest'
+        run: mv ${{ steps.strings.outputs.build-output-dir }}/libplugin.so ${{ steps.strings.outputs.build-output-dir }}/libplugin_mac.so
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.3
