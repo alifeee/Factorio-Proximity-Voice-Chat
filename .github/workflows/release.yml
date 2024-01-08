@@ -29,7 +29,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         build_type: [Release]
         c_compiler: [gcc, cl]
         include:
@@ -37,10 +37,14 @@ jobs:
             c_compiler: cl
           - os: ubuntu-latest
             c_compiler: gcc
+          - os: macos-latest
+            c_compiler: gcc
         exclude:
           - os: windows-latest
             c_compiler: gcc
           - os: ubuntu-latest
+            c_compiler: cl
+          - os: macos-latest
             c_compiler: cl
 
     steps:
@@ -82,10 +86,11 @@ jobs:
 
       - name: Bundle
         run: |
-          mv build/libfactorio_linux_x86_64.so libplugin.so
           mv build/Release/plugin.dll plugin.dll
+          mv build/libfactorio_linux_x86_64.so libplugin.so
+          mv build/libfactorio_macos_x86_64.dylib libplugin.dylib
           mv mumble/manifest.xml manifest.xml
-          zip -MM factorio.mumble_plugin manifest.xml libplugin.so plugin.dll
+          zip -MM factorio.mumble_plugin manifest.xml plugin.dll libplugin.so libplugin.dylib
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.3

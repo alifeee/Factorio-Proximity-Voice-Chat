@@ -3,6 +3,7 @@
   <assets>
     <plugin os="windows" arch="x64">plugin.dll</plugin>
     <plugin os="linux" arch="x64">libplugin.so</plugin>
+    <plugin os="mac" arch="x64">libplugin_mac.so</plugin>
   </assets>
   <name>Factorio Positional Audio</name>
   <version>1.1.0</version>
