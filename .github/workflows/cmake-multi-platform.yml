@@ -55,9 +55,12 @@ jobs:
       - name: Build
         run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
-      - name: Rename Mac OS X plugin
-        if: matrix.os == 'macos-latest'
-        run: mv ${{ steps.strings.outputs.build-output-dir }}/libplugin.so ${{ steps.strings.outputs.build-output-dir }}/libplugin_mac.so
+      - name: List files
+        run: ls -R ${{ steps.strings.outputs.build-output-dir }}
+
+      # - name: Rename Mac OS X plugin
+      #   if: matrix.os == 'macos-latest'
+      #   run: mv ${{ steps.strings.outputs.build-output-dir }}/libplugin.so ${{ steps.strings.outputs.build-output-dir }}/libplugin_mac.so
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.3
