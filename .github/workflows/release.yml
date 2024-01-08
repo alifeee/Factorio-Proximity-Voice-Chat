@@ -86,10 +86,11 @@ jobs:
 
       - name: Bundle
         run: |
-          mv build/libfactorio_linux_x86_64.so libplugin.so
           mv build/Release/plugin.dll plugin.dll
+          mv build/libfactorio_linux_x86_64.so libplugin.so
+          mv build/libfactorio_macos_x86_64.dylib libplugin.dylib
           mv mumble/manifest.xml manifest.xml
-          zip -MM factorio.mumble_plugin manifest.xml libplugin.so plugin.dll
+          zip -MM factorio.mumble_plugin manifest.xml plugin.dll libplugin.so libplugin.dylib
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.3
