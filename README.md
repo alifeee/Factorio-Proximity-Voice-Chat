@@ -1,3 +1,5 @@
+> [!CAUTION]
+> MOVED! see <https://git.alifeee.net/Factorio-Proximity-Voice-Chat/about/>
 # Factorio Proximity Chat
 
 Proximity/positional audio in Factorio!
